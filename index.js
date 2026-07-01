@@ -1,12 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+const dotenv=require("dotenv")
 const mongoose = require("mongoose");
 
 const employeeRoutes = require("./routes/employeeRoutes");
 const loggerMiddleware = require("./middleware/loggerMiddleware");
 
+dotenv.config()
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -19,7 +20,7 @@ app.get("/", (req, res) => {
   res.send("Employee Management API Running");
 });
 
-mongoose.connect("mongodb+srv://yashikagoyal:yashikagoyal@cluster0.3jnya9v.mongodb.net/ems")
+mongoose.connect(process.env.MONGO_URI)
 .then(() =>{
   console.log("Connected to MongoDB");
 })
